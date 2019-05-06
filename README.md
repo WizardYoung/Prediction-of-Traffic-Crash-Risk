@@ -12,3 +12,5 @@ Traffic crash data can be obtained at [Chicago Data Portal](https://data.cityofc
 4. [Chicago Traffic Tracker - Congestion Estimates by Segments](https://data.cityofchicago.org/Transportation/Chicago-Traffic-Tracker-Congestion-Estimates-by-Se/n4j6-wkkf): Geo information of traffic segments of Chicago arterial streets (nonfreeway streets).
 5. [Chicago Traffic Tracker - Congestion Estimates by Regions](https://data.cityofchicago.org/Transportation/Chicago-Traffic-Tracker-Congestion-Estimates-by-Re/t2qc-9pjd): Geo information of Chicago Regions.
 
+# Results
+Please see Chicago_Traffic_Crashes.ipynb
