@@ -8,7 +8,7 @@
 # 1. [Abstract](#abstract)
 # 2. [Exploratory Data Analysis](#exploratory-data-analysis)
 # 3. [Modeling](#modeling)
-# 4. [Conclusion](#modeling)
+# 4. [Conclusion](#conclusion)
 
 # <a id='abstract'></a>
 # # I. Abstract
@@ -30,7 +30,7 @@
 
 # ## Data Processing
 
-# In[260]:
+# In[297]:
 
 
 import pandas as pd
@@ -45,14 +45,14 @@ import seaborn as sns
 
 # Load the dataset into dataframe and have a glance.
 
-# In[261]:
+# In[298]:
 
 
 crash_raw = pd.read_csv("data/Traffic_Crashes_-_Crashes.csv", parse_dates=['CRASH_DATE','DATE_POLICE_NOTIFIED'])
 crash_raw.head()
 
 
-# In[262]:
+# In[299]:
 
 
 crash_raw.shape
@@ -60,7 +60,7 @@ crash_raw.shape
 
 # Select crashes in 2016-2018
 
-# In[263]:
+# In[300]:
 
 
 crash = crash_raw[(crash_raw['CRASH_DATE'] < pd.datetime(2019,1,1)) & (crash_raw['CRASH_DATE'] >= pd.datetime(2016,1,1))].copy()
@@ -68,7 +68,7 @@ crash = crash_raw[(crash_raw['CRASH_DATE'] < pd.datetime(2019,1,1)) & (crash_raw
 
 # Deal with outliers and missing values in geo coordinates(LATITUDE, LONGITUDE), INJURIES_FATAL and POSTED_SPEED_LIMIT, then convert dataframe to geo dataframe.
 
-# In[264]:
+# In[301]:
 
 
 crash = crash[crash['LOCATION'].notnull()]
@@ -94,7 +94,7 @@ crash.shape
 # ### An overview of geographic distribution
 # What does the 245k traffic crashes look like?
 
-# In[265]:
+# In[302]:
 
 
 crash.plot(markersize=0.01, edgecolor='red',figsize=(12,12));
@@ -102,7 +102,7 @@ plt.axis('off');
 plt.title('Crash in Chicago from 2016 to 2018')
 
 
-# In[266]:
+# In[303]:
 
 
 """crash.info()
@@ -118,31 +118,31 @@ selected_clomuns = ['RD_NO','CRASH_DATE','POSTED_SPEED_LIMIT',
 
 # ### Number of crashes by a single feature
 
-# In[267]:
+# In[304]:
 
 
 crash['CRASH_TYPE'].value_counts().plot(kind='bar', title ="CRASH_TYPE", figsize=(10, 5), legend=True, fontsize=12)
 
 
-# In[268]:
+# In[305]:
 
 
 crash['DAMAGE'].value_counts().plot(kind='bar', title ="DAMAGE", figsize=(10, 5), legend=True, fontsize=12)
 
 
-# In[269]:
+# In[306]:
 
 
 crash['MOST_SEVERE_INJURY'].value_counts().plot(kind='bar', title ="MOST_SEVERE_INJURY", figsize=(10, 5), legend=True, fontsize=12)
 
 
-# In[270]:
+# In[307]:
 
 
 crash['WEATHER_CONDITION'].value_counts().plot(kind='bar', title ="WEATHER_CONDITION", figsize=(10, 5), legend=True, fontsize=12)
 
 
-# In[271]:
+# In[308]:
 
 
 crash['ROADWAY_SURFACE_COND'].value_counts().plot(kind='bar', title ="road surface condition", figsize=(10, 5), legend=True, fontsize=12)
@@ -150,7 +150,7 @@ crash['ROADWAY_SURFACE_COND'].value_counts().plot(kind='bar', title ="road surfa
 
 # ### Number of crashes by time-related varables
 
-# In[272]:
+# In[309]:
 
 
 crash.groupby(['CRASH_MONTH']).count()['RD_NO'].plot(kind='bar', title ="Crash by Month", figsize=(10, 5), legend=True, fontsize=12)
@@ -160,7 +160,7 @@ crash.groupby(['CRASH_MONTH']).count()['RD_NO'].plot(kind='bar', title ="Crash b
 
 # *Crashes by day of week (Sunday == 1)*
 
-# In[273]:
+# In[310]:
 
 
 crash.groupby(['CRASH_DAY_OF_WEEK']).count()['RD_NO'].plot(kind='bar', title ="Crash by Day", figsize=(10, 5), legend=True, fontsize=12)
@@ -170,7 +170,7 @@ crash.groupby(['CRASH_DAY_OF_WEEK']).count()['RD_NO'].plot(kind='bar', title ="C
 
 # *Crashes by hours*
 
-# In[274]:
+# In[311]:
 
 
 crash.groupby(['CRASH_HOUR']).count()['RD_NO'].plot(kind='bar', title ="Crash by Hour", figsize=(10, 5), legend=True, fontsize=12)
@@ -180,9 +180,9 @@ crash.groupby(['CRASH_HOUR']).count()['RD_NO'].plot(kind='bar', title ="Crash by
 
 # ### Number of crashes by location-realated variables
 
-# *Dynamic heapmap showing deographic distribution of crash by month in 2018*
+# *Dynamic heapmap showing geographic distribution of crash by month in 2018*
 
-# In[275]:
+# In[312]:
 
 
 map_chicago = folium.Map(location=[41.830994, -87.647345],
@@ -202,9 +202,9 @@ plugins.HeatMapWithTime(heatmap, radius=3, auto_play=True,max_opacity=0.8).add_t
 map_chicago
 
 
-# *Dynamic heapmap showing deographic distribution of crash by hour in 2018*
+# *Dynamic heapmap showing geographic distribution of crash by hour in 2018*
 
-# In[277]:
+# In[313]:
 
 
 map_chicago = folium.Map(location=[41.830994, -87.647345],
@@ -216,17 +216,23 @@ crash2018 = crash[(crash['CRASH_DATE'] < pd.datetime(2019,1,1)) & (crash['CRASH_
 heatmap = []
 for i in range(0,24):
     df = crash2018[crash2018['CRASH_HOUR'] == i]
-    df1 = df.sample(int(len(df)*0.3))
+    df1 = df.sample(int(len(df)*0.1))
     cood = [[row["LATITUDE"], row["LONGITUDE"]] for idx, row in df1.iterrows()]
     heatmap.append(cood)
     
-plugins.HeatMapWithTime(heatmap, radius=3, auto_play=True,max_opacity=0.8).add_to(map_chicago)
+plugins.HeatMapWithTime(heatmap, radius=5, auto_play=True,max_opacity=0.8).add_to(map_chicago)
 map_chicago
+
+
+# In[314]:
+
+
+#map_chicago.save('crash heatmap.html')
 
 
 # *number of crashes by street*
 
-# In[278]:
+# In[315]:
 
 
 crash['STREET_NAME'].value_counts()[:min(20, len(crash))].plot(kind='bar', title ="Crash by Street", figsize=(10, 5), legend=True, fontsize=12)
@@ -235,7 +241,7 @@ crash['STREET_NAME'].value_counts()[:min(20, len(crash))].plot(kind='bar', title
 # <a id='modeling'></a>
 # # Modeling
 
-# In[279]:
+# In[316]:
 
 
 
@@ -250,7 +256,7 @@ features = ['POSTED_SPEED_LIMIT',
             ]
 
 
-# In[280]:
+# In[317]:
 
 
 from sklearn.linear_model import LinearRegression
@@ -259,7 +265,7 @@ from sklearn.model_selection import train_test_split
 #from sklearn.preprocessing import StandardScaler
 
 
-# In[281]:
+# In[318]:
 
 
 # Convert geo-dataframe into a regular dataframe.
@@ -274,13 +280,13 @@ df = pd.DataFrame(crash[features])
 df.describe()
 
 
-# In[282]:
+# In[319]:
 
 
 df.info()
 
 
-# In[283]:
+# In[320]:
 
 
 """
@@ -296,7 +302,7 @@ for i in range(len(cols)):
 """
 
 
-# In[284]:
+# In[321]:
 
 
 corr_mat = df.corr()
@@ -304,7 +310,7 @@ f, ax = plt.subplots(figsize=(12, 9))
 sns.heatmap(corr_mat, vmax=.8, square=True)
 
 
-# In[285]:
+# In[322]:
 
 
 # Encoding catagory variables
@@ -318,7 +324,7 @@ df = pd.get_dummies(df)
 df.head()
 
 
-# In[286]:
+# In[323]:
 
 
 X_train, X_test, y_train, y_test = train_test_split(df.drop(['INJURIES_FATAL', 'INJURIES_INCAPACITATING'], axis=1), 
@@ -326,7 +332,7 @@ X_train, X_test, y_train, y_test = train_test_split(df.drop(['INJURIES_FATAL', '
 X_train.shape, X_test.shape, y_train.shape, y_test.shape
 
 
-# In[287]:
+# In[324]:
 
 
 def rmse(x,y): return np.sqrt(((x-y)**2).mean())
@@ -344,7 +350,7 @@ def print_score(m):
           )
 
 
-# In[288]:
+# In[325]:
 
 
 
@@ -353,7 +359,7 @@ rfr.fit(X_train, y_train)
 print_score(rfr)
 
 
-# In[289]:
+# In[326]:
 
 
 f_imp = pd.DataFrame(data={'importance':rfr.feature_importances_,'features':X_train.columns}).set_index('features')
