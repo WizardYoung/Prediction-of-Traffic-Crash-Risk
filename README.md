@@ -13,4 +13,4 @@ Traffic crash data can be obtained at [Chicago Data Portal](https://data.cityofc
 5. [Chicago Traffic Tracker - Congestion Estimates by Regions](https://data.cityofchicago.org/Transportation/Chicago-Traffic-Tracker-Congestion-Estimates-by-Re/t2qc-9pjd): Geo information of Chicago Regions.
 
 # Results
-Please see [notebook](https://github.com/shengbo-ma/Prediction-of-Traffic-Crash-Risk-in-Chicago/blob/master/Chicago_Traffic_Crashes.ipynb). IF it failed to render, try open it at https://nbviewer.jupyter.org/
+Please see [this notebook: Chicago_Traffic_Crashes.ipynb](https://github.com/shengbo-ma/Prediction-of-Traffic-Crash-Risk-in-Chicago/blob/master/Chicago_Traffic_Crashes.ipynb). IF it failed to render, try open it at https://nbviewer.jupyter.org/
