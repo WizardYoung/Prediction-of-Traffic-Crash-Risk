@@ -1,4 +1,4 @@
-# Investigation on Traffic Crashes in Chicago
+# Prediction of Traffic Crash Risk in Chicago
 
 # Abstract
 
