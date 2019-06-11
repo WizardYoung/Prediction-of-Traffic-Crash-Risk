@@ -1,4 +1,4 @@
-# Prediction of Traffic Crash Risk in Chicago
+# Prediction of Traffic Crash Risk
 
 # Abstract
 
