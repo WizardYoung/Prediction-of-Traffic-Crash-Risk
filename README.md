@@ -2,7 +2,7 @@
 
 # Abstract
 
-Traffic crash is not only an major topic in Geographic AI, but also directly ralated to people's daily life. Nearly 1.3 million people die internationally every year from car accidents and in addition up to 50 million people are injured. Machine learning can be a helpful tool to analyze and reduce the risk of crashes. In this work, an data analysis is demonstrated on Chicago traffic crashes (20016-2018), followed by a prediction of risk and severity of crashes based on random forrest model. This work is a promising application for safe route planning, emergency vehicle allocation, roadway design and where to place additional traffic control devices.
+Traffic crash is not only an major topic in Geographic AI, but also directly related to people's daily life. Nearly 1.3 million people die internationally every year from car accidents and in addition up to 50 million people are injured. Machine learning can be a helpful tool to analyze and reduce the risk of crashes. In this work, an data analysis is demonstrated on Chicago traffic crashes (20016-2018), followed by a prediction of risk and severity of crashes based on random forrest model. This work is a promising application for safe route planning, emergency vehicle allocation, roadway design and where to place additional traffic control devices.
 
 # Data Source
 Traffic crash data can be obtained at [Chicago Data Portal](https://data.cityofchicago.org/), using SODA API or exporting directly from the website. The links and descriptions of datasets are listed below:

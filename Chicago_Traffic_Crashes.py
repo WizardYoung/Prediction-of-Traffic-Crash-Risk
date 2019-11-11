@@ -66,6 +66,9 @@ crash_raw.shape
 crash = crash_raw[(crash_raw['CRASH_DATE'] < pd.datetime(2019,1,1)) & (crash_raw['CRASH_DATE'] >= pd.datetime(2016,1,1))].copy()
 
 
+
+
+
 # Deal with outliers and missing values in geo coordinates(LATITUDE, LONGITUDE), INJURIES_FATAL and POSTED_SPEED_LIMIT, then convert dataframe to geo dataframe.
 
 # In[301]:
